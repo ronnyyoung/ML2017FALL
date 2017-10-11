@@ -2,6 +2,8 @@
 
 ## Notes
 
-- [01、Introduction to machine learning](./notes/01_introduction.md)
+- [00、Introduction to machine learning](./notes/00_introduction.md)
+- [01、Regression](./notes/01_regression.md)
+- [02、Model Selection](./notes/02_model_selection.md)
 
 ## Homework
