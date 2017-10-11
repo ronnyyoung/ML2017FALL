@@ -3,6 +3,15 @@
 \[[lecture](../lectures/bias_and_variance.pdf)\]
 \[[video](https://www.bilibili.com/video/av10590361/#page=3)\]
 
+<!-- TOC -->
+
+- [Model Selection](#model-selection)
+    - [Where does the error come from?](#where-does-the-error-come-from)
+    - [Diagnose our model](#diagnose-our-model)
+    - [Model Selection](#model-selection-1)
+
+<!-- /TOC -->
+
 在上一节Regression中，我们通过宝可梦进化后CP值的回归问题把解决机器学习的三个步骤进行了串讲，回顾一下这三个步骤：
 1. Define a set of funciton
 2. Goodness of function
@@ -58,7 +67,7 @@ $$Var[m] = \frac{\sigma^2}{N}$$
 
 ![Bias and Variance](../images/023_bias_and_variance.jpg)
 
-# Diagnose our model
+## Diagnose our model
 
 > [TODO] 这部分可以结果NG的Machine Larning做更多的讨论，包括解决过拟合的问题，可以专题讨论。
 
@@ -74,7 +83,7 @@ $$Var[m] = \frac{\sigma^2}{N}$$
 1. 增加更多的数据，但这个在实际中可能比较困难
 2. 正则化
 
-# Model Selection
+## Model Selection
 
 最后的一部分，将介绍在实际训练时，我们应该如何用我们的训练数据与测试数据集来选择我们的最优模型。
 
@@ -87,13 +96,3 @@ $$Var[m] = \frac{\sigma^2}{N}$$
 如果我们的训练集比较少，你会觉得分一部分出来做验证集不好，那可以使用交互验证（cross validation），把训练集等分为多份。每次从中选择一份作为验证集，其他部分作为训练集，训练所有选择的模型。最后再对每种模型的准确率求平均。
 
 ![Cross Validation](../images/025_cross_validation.jpg)
-
-
-
-
-
-
-
-
-
-
