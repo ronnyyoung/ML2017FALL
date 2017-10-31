@@ -2,6 +2,22 @@
 
 \[[lecture](../lectures/dnn_tips.pdf)\]
 \[[intro video](https://www.bilibili.com/video/av10590361/#page=10)\]
+\[[Keras调参DEMO](https://www.youtube.com/watch?v=Ky1ku1miDow)\]
+
+<!-- TOC -->
+
+- [DNN Tips](#dnn-tips)
+    - [Recipe of Deep Learning](#recipe-of-deep-learning)
+    - [Vanishing Gradient Problem](#vanishing-gradient-problem)
+    - [RELU](#relu)
+    - [Adaptive Learning Rate](#adaptive-learning-rate)
+    - [Early Stopping](#early-stopping)
+    - [Regularization](#regularization)
+    - [Dropout](#dropout)
+    - [BatchNorm](#batchnorm)
+    - [Conclusion](#conclusion)
+
+<!-- /TOC -->
 
 上一个Note介绍了深度学习的基本概念和用反向传播来求解参数梯度的方法，我们知道了深度学习就是在原来神经网络的基础上有了更深的结构，那更深的结构带来了更多的问题。我们在训练一个深度神经网络的时候，不是那么容易就可以得到理想的结果，里面有很多工程技巧与调参经验。
 

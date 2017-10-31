@@ -10,5 +10,6 @@
 - [05、Classification: Logistic Regression](./notes/05_classification_2.md)
 - [06、DeepLearning and Backprogation](./notes/06_deeplearning_intro.md)
 - [07、DNN Tips](./notes/07_dnn_tips.md)
+- [08、CNN](./notes/08_cnn.md)
 
 ## Homework
