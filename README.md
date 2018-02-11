@@ -11,5 +11,15 @@
 - [06、DeepLearning and Backprogation](./notes/06_deeplearning_intro.md)
 - [07、DNN Tips](./notes/07_dnn_tips.md)
 - [08、CNN](./notes/08_cnn.md)
+- [09、无监督学习之化繁为简](#)
+- [10、无监督学习之无中生有](#)
+- [11、半监督学习入门](#)
+- [12、迁移学习入门](#)
+- [13、SVM](#)
+- [14、强化学习入门](#)
+- [15、Structuring Learning](#)
+- [16、Ensemble、决策树和Gradient Boosting](#)
+- [17、图模型](#)
+- [18、生成式概率学习模型](#)
 
 ## Homework
