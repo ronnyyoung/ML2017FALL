@@ -4,29 +4,11 @@
 \[[video1](https://youtu.be/CXgbekl66jc)\]
 \[[video2](https://www.youtube.com/watch?v=On1N8u1z2Ng)\]
 
-<!-- TOC -->
-
-- [Introduction to machine learning](#introduction-to-machine-learning)
-    - [AI VS. Machine Learning VS. Deep Learning](#ai-vs-machine-learning-vs-deep-learning)
-    - [What is Machine Learning?](#what-is-machine-learning)
-    - [Machine Learning Framework](#machine-learning-framework)
-        - [Define a set of funciton](#define-a-set-of-funciton)
-        - [Goodness of function](#goodness-of-function)
-        - [Pick the best function](#pick-the-best-function)
-    - [Learning Map](#learning-map)
-        - [Regession](#regession)
-        - [Classification](#classification)
-        - [Semi-supervised Learning](#semi-supervised-learning)
-        - [Unsupervised Learning](#unsupervised-learning)
-        - [Structured Learning](#structured-learning)
-        - [Reinforcement Learning](#reinforcement-learning)
-
-<!-- /TOC -->
-
-
-## AI VS. Machine Learning VS. Deep Learning
+## 1. AI VS. Machine Learning VS. Deep Learning
 
 AI实际是一个很早就提出来的概念，早在1950年左右，AI概念就已经在全世界流行，虽然那时候计算机也才刚刚问题世。但那个时候的一些AI系统大多都是基于规则的，系统里的逻辑都是人工设定好的逻辑（rule based），而且逻辑都比较简单,这种通过人工手动设计规则的智能是一种伪智能，它永远不可能超过人类，它本身没有任何的free style, 这个时代实际上是人们提出了一种人工智能的愿景，但是没有找到很好的实现AI的方法。
+
+下面的插图则描绘了当时使用大量`hand-craft`规则来实现人工智能的尴尬情况。
 
 ![AI Inside](../images/001_ai_inside.jpg)
 
@@ -37,9 +19,11 @@ AI实际是一个很早就提出来的概念，早在1950年左右，AI概念就
 总体来说，50年代的AI实际是一种概念的提出与人们美好的愿景，80年代开始人们找到了机器学习这个手段来实现当初的人工智能的梦想，但受限于方法与计算能力，那个阶段的机器学习方法只在很小的一领域得到了应用。到了21世纪，随着深度学习的野蛮生长，机器学习的方法已经在向各个行业渗透，而且在很多领域取得了比人类更高的准确率，AI开始真正的走向了人类的生活并参与到人类的行业生产中。
 
 
-## What is Machine Learning?
+## 2. What is Machine Learning?
 
 从字面上来理解，Machine Learning一拆为二，Machine指明了主体是一个Machine，我们可以理解为一个Computer或者是一个程序，Learning说明了这个程序具有学习的功能，能够通过大量数据的输入来自动的学习到这些数据的一些潜在规律或形式，在下次再看到一些新的数据时，可以分辨或认出。
+
+所以**机器学习**在我看来可以定义为：“Giving Computers the Ability to Learn from Data”。
 
 常见的学习任务比如：
 - 语音识别：通过大量语音与对应语言词汇（句子）的学习，机器可以把新输出的语音转换为对应的文本。
@@ -52,7 +36,9 @@ AI实际是一个很早就提出来的概念，早在1950年左右，AI概念就
 - Playing Go: f(当前的棋局) = “5-5”（next move）
 - Dialogue System: f("Hi") = "Hello"
 
-## Machine Learning Framework
+## 3. Machine Learning Framework
+
+那么我们如何使用Machine Learning的方法（模型）来做上面的学习任务呢？简单来说只需要三步，就像把大象放进冰箱这么简单。
 
 ![three_steps](../images/002_three_steps.jpg)
 
@@ -60,30 +46,30 @@ AI实际是一个很早就提出来的概念，早在1950年左右，AI概念就
 - Step2: Goodness of function
 - Step3: Pick the best function
 
-### Define a set of funciton
+### 3.1 Define a set of funciton
 
-当我们在根据一个特定的问题设计机器学习算法时，首先第一步就是要想好我们的Function Set，我们需要从function set中挑选适合问题的function。那实际上如何来定义这样的Function Set呢，一般需要一些Domain Knowledge，而且一些概念统计的方法也为我们选择function set提供了指导。
+当我们在根据一个特定的问题设计机器学习算法时，首先第一步就是要想好我们的Function Set，我们需要从function set中挑选适合问题的function。那实际上如何来定义这样的Function Set呢，一般需要一些Domain Knowledge，而且一些概率统计的方法也为我们选择function set提供了指导。
 
 比如对于房屋价格的预测问题，我们就可以挑选线性函数（$\sum_i x_iw_i$）作为我们的Function set，具体挑选哪一个线性函数呢，那将由第二步和第三步来完成。
 
-### Goodness of function
+### 3.2 Goodness of function
 
 有了一个Function Set后，我们需要定义一个评价函数，用来说明我们从Function set中选择的function的好坏。那么这个评价函数就是关于我们挑选的模型（function）的函数，到后面就知道了，也就是经过常到的**损失函数**。
 
-### Pick the best function
+### 3.3 Pick the best function
 
 当我们有一个function set并且有了关于function的评价函数后，我们就可以挑选出最好的一个function来作为我们要解决的问题的模型函数了。这里往往是一个最优化的问题。
 
 
-## Learning Map
+## 4. Learning Map
 
 ![LearnigMap](../images/003_learning_map.jpg)
 
-### Regession
+### 4.1 Regession
 
 回归模型有一个很明显的特点是：它的输出是一个`Scalar`，比如预测明天的PM2.5。
 
-### Classification
+### 4.2 Classification
 
 分类问题可以分为二分类或多分类问题。
 
@@ -91,24 +77,30 @@ AI实际是一个很早就提出来的概念，早在1950年左右，AI概念就
 
 对于多分类问题它的输出是一个类别的标签，在数学表达上我们常用的方法是把输出表示为一个长度等于类别数的一个向量$y = [y_1,y_2,\cdots,y_k]$，其中$k$为类别数。对于输出$y$，哪一个分量最大，则代表输入属于哪一类。常见的多分类问题有：图片的分类、新闻的主题归类等。
 
-### Semi-supervised Learning
+### 4.3 Semi-supervised Learning
 
 上面说的回归与分类问题都是属于有监督的学习问题，它的特点是训练数据都是带有标签的。而实际上搜集大量带标签的数据是一件很难的事情。那针对于现实中大量无标准的数据，我们可以采用半监督的学习方法以及无监督的学习方法。
 
 这里需要区别的是半监督学习与迁移学习的不同。
 
-半监督学习解决的问题中有标签的数据与无标签数据是有关系的，属性同一类型的问题，比如我们已经有一些猫和狗的带标签照片，如果把大量没带标签的猫和狗的照片用起来，这是半监督学习要考虑的事。而如果我们已经有很多带标签的猫和狗的照片，我们想训练一个模型来识别大像和老虎的图片，那么这就属于迁移学习的范畴了。
+半监督学习解决的问题中有标签的数据与无标签数据是有关系的，属于同一类型的问题，比如我们已经有一些猫和狗的带标签照片，如果把大量没带标签的猫和狗的照片用起来，这是半监督学习要考虑的事。而如果我们已经有很多带标签的猫和狗的照片，我们想训练一个模型来识别大像和老虎的图片，那么这就属于迁移学习的范畴了。
 
-### Unsupervised Learning
+### 4.4 Transfer learning
+
+迁移学习解决的是利用已有的一些模型，来做一些新的任务，新任务里的数据和之前模型训练用到的数据是不同类的数据，比如之前的模型是一个动物的分类器，而我们想解决在植物数据集上的的分类问题。
+
+这个方向只所以能work的原因很大是因为，深度学习的浅层网络部分往往学习到的是一些公共的知识。
+
+### 4.5 Unsupervised Learning
 
 无监督学习研究如何让机器通过大量没有label的数据，自动的学习到数据与数据之间的差异以及数据背后的一些潜在的结构或分布。比如通过学习大量图片后，机器能否根据一个code(编码后的数据)自动的生成一张逼近真实的照片
 
-### Structured Learning
+### 4.6 Structured Learning
 
 Structured learning是分类与回归问题之外的一种机器学习方法，它的学习目标不是输出一个`Scalar`或者一个类别标签。而是一个带有结构的数据。比如在语音识别中输出是一个句子，在目标检测中，输出的是目标的位置。
 
 
-### Reinforcement Learning
+### 4.7 Reinforcement Learning
 
 强化学习有点像有监督的学习，但两者又有很大的不同。有监督的学习是learn from teacher，而强化学习是learn from critics。强化学习往往是针对一个多步骤的任务，每一步骤并不能得到实时的反馈，只能根据最终整个任务的完成情况或评价结果来得到反馈。
 
