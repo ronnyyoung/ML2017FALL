@@ -9,7 +9,7 @@
 有些人可能会有疑问，在某些分类问题中，我们经常预测输入属于某一类别的概率，它的输出是一个概率值，也是一个`Scalar`,为什么不叫回归呢。注意，问题的本身的输出还是一个类别标签，而转化输出某一个类别的概率是一种数学求解思路。
 
 
-## Estimating the CP of a pokemon afer evolution
+## １. Estimating the CP of a pokemon afer evolution
 
 这里我们通过一个例子来说明Regression是如何解决问题的。我们的例子是预测宝可梦进化后的CP（Combat Power）值。
 
@@ -29,7 +29,7 @@ $$x = [x_{cp},x_s,x_{hp},x_w,x_h]$$
 
 为了简化起见，我们先从最简单的情况开始，我们只用宝可梦进化前的CP($x_{cp})$来代表一只宝可梦，用$y$来表示宝可梦进化后的CP值。
 
-## Step1 Model
+## 2. Step1 Model
 
 之前我们介绍到了机器学习的第一步是定义一个Function Set，这里我们讲Regression，我们要为宝可梦CP值的预测选择一个Function Set，根据一些Domain知识，我们选择线性回归的模型来解决这个问题。
 
@@ -37,7 +37,7 @@ $$y = b + \sum w_ix_i$$
 
 针对宝可梦的问题，我们的Function Set也就是一个一元线性回归的模型：$y = b + w \cdot x_{cp}$，这里我们$x$只选择了宝可梦进前化的CP值，所以维度为1,后面将其他属性都考虑上时的线程模型也是显而易见的。
 
-## Step2 Goodness of Function
+## 3. Step2 Goodness of Function
 
 现在我们已经选择了一个Function Set: $y = b + w \cdot x_{cp}$，这里有两个未知的变量$w$和$b$，所有可能的$w$和$b$构成了整个Function Set，那我们如何选择合适的$w$和$b$呢，我们需要找到一个评价函数。
 
@@ -56,7 +56,7 @@ $$L(w,b) = \sum_{n=1}^{10}(\hat{y}^n-(b+w\cdot x_{cp}^n))^2$$
 我们的目标是挑选一个$f$（或者说挑选$f$的参数$w$和$b$），使得$L$的值越小越好。
 
 
-## Step3 Best Function
+## 4. Step3 Best Function
 
 现在我们问题只剩下最后一步了，在我们的Function Set中找到一个$f$，它是能让我们步骤2中定义的$L(f)$最小的那个。
 
@@ -70,7 +70,7 @@ $$w^*,b^* = arg\min_{w,b}L(w,b) = arg\min_{w,b}\sum^{10}_{n=1}(\hat{y}^n-(b+w\cd
 
 在这里我们将介绍一个机器学习中很流行，很强大，也更加通用的方法：梯度下降（Gradient Descent）。
 
-## Gradient Descent
+## 5. Gradient Descent
 
 简化起见，我们这里先用Gradinet Descent来求解$w^* = arg\min_wL(w)$，梯度下降的步骤是：
 1. 对$w$随机初始化为$w^0$
@@ -93,7 +93,7 @@ $$w^*,b^* = arg\min_{w,b}L(w,b) = arg\min_{w,b}\sum^{10}_{n=1}(\hat{y}^n-(b+w\cd
 
 注：上面步骤中关于如何求解$L(w,b)$关于$w$与$b$的偏导数，是很基础的微积分的知识，这里就从略了。关于梯度下降的话题，我们将在后面的章节中更加细致全面的讲解。
 
-## How the result
+## 6. How the result
 
 上面我们按照机器学习的三步的一个框架对我们的宝可梦问题进行了求解，通过步骤3,我们已经可以求出一个最佳的$w$和$b$，那么我们最终得到的线性回归模型$y = w\cdot x_{cp} + b$表现到底如何呢。
 
@@ -117,7 +117,7 @@ $$w^*,b^* = arg\min_{w,b}L(w,b) = arg\min_{w,b}\sum^{10}_{n=1}(\hat{y}^n-(b+w\cd
 
 ![model selection](../images/013_model_selection.jpg)
 
-## Hidden Factors
+## 7. Hidden Factors
 
 当我们搜集到更多的宝可梦的数据进行训练时，我们发现之前定义的模型无论如何都无法达到一个特别满意的效果，于是，我们对搜集的训练数据进行了可视化，如下：
 
@@ -139,7 +139,7 @@ $$w^*,b^* = arg\min_{w,b}L(w,b) = arg\min_{w,b}\sum^{10}_{n=1}(\hat{y}^n-(b+w\cd
 
 很显然，我们遇到了之前同样的问题：过拟合！！
 
-## Regularization
+## 8. Regularization
 
 既然，我们在模型选择很容易选择一个很复杂的模型，而遇到过拟合的问题，那么我们如何避免呢，我们回到第二步中，重新设计我们的评价函数，这次我们评价函数把模型的复杂度也考虑进去。
 
