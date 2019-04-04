@@ -2,25 +2,12 @@
 \[[lecture](../lectures/regression.pdf)\]
 \[[video](https://www.bilibili.com/video/av10590361/#page=2)\]
 
-<!-- TOC -->
-
-- [Regression](#regression)
-    - [Estimating the CP of a pokemon afer evolution](#estimating-the-cp-of-a-pokemon-afer-evolution)
-    - [Step1 Model](#step1-model)
-    - [Step2 Goodness of Function](#step2-goodness-of-function)
-    - [Step3 Best Function](#step3-best-function)
-    - [Gradient Descent](#gradient-descent)
-    - [How the result](#how-the-result)
-    - [Hidden Factors](#hidden-factors)
-    - [Regularization](#regularization)
-
-<!-- /TOC -->
-
 在上一篇的笔记里，我们已经总体上介绍了机器学习中常见的Scenario，以及每个Scenario中有哪些常见Task。今天要讲的Regression就是属于Supervised Learning这个Scenario下的task。
 
-在Instroduction里提到了回归与分类最大的不同在于，回归的输出是一个`Scalar`，在现实生活中我们会预到很多问题的输出都是一个`Scalar`，比如股票未来走势的预测，自动驾驶决策中方向盘的角度，购物网站中推荐系统预测消费者A购买商品B的可能性等。
+在Introduction里提到了回归与分类最大的不同在于，回归的输出是一个`Scalar`，在现实生活中我们会预到很多问题的输出都是一个`Scalar`，比如股票未来走势的预测，自动驾驶决策中方向盘的角度，购物网站中推荐系统预测消费者A购买商品B的可能性等。
 
 有些人可能会有疑问，在某些分类问题中，我们经常预测输入属于某一类别的概率，它的输出是一个概率值，也是一个`Scalar`,为什么不叫回归呢。注意，问题的本身的输出还是一个类别标签，而转化输出某一个类别的概率是一种数学求解思路。
+
 
 ## Estimating the CP of a pokemon afer evolution
 
@@ -35,6 +22,10 @@ $$f(\text{Pokemon}) = \text{CP after evolution}$$
 我们可以用一些属性的值，比如进化前的CP值，宝可梦的种类，生命值，重量，高度等来表示一个宝可梦
 
 $$x = [x_{cp},x_s,x_{hp},x_w,x_h]$$
+
+我们可以把$x$称为宝可梦的`feature`，那针对具体的问题我们如何来选择`feature`呢，这里一般有一些Domain Knowledge，也可以结合一些统计分析、可视化等方法来辅助，选择对预期输出影响较大的因素作为`feature`。
+
+> 选择feature和选择function set都需要大量的领域知识，需要人为构造，这也是传统machine learning的不足，正是deep learning的强大之处。deep learning本身可以设计很复杂的结构，有很强的表达能力，不需要考虑太多function set的问题，而且deep learning又具有自动学习feature的能力。
 
 为了简化起见，我们先从最简单的情况开始，我们只用宝可梦进化前的CP($x_{cp})$来代表一只宝可梦，用$y$来表示宝可梦进化后的CP值。
 
@@ -58,28 +49,30 @@ $$y = b + \sum w_ix_i$$
 
 ![Loss Function](../images/007_loss_function.jpg)
 
-我们将选择的function代入到上面的公式中，就得到了：
+上面公式中蓝色框中公式表式，预测出来的CP值($f(x_{cp})$)和真实的CP值（$\hat{y}$）之间的差异。我们对所有样本的差异求平方和，一种做法，我们一般称为均方误差(MSE: Mean Square Error)。我们将选择的function代入到上面的公式中，就得到了：
 
 $$L(w,b) = \sum_{n=1}^{10}(\hat{y}^n-(b+w\cdot x_{cp}^n))^2$$
+
+我们的目标是挑选一个$f$（或者说挑选$f$的参数$w$和$b$），使得$L$的值越小越好。
 
 
 ## Step3 Best Function
 
 现在我们问题只剩下最后一步了，在我们的Function Set中找到一个$f$，它是能让我们步骤2中定义的$L(f)$最小的那个。
 
-$$f^* = arg\max_f L(f)$$
+$$f^* = arg\min_f L(f)$$
 
 我们也可以把上面公式转化为关于$w$和$b$的问题。
 
-$$w^*,b^* = arg\max_{w,b}L(w,b) = arg\max_{w,b}\sum^{10}_{n=1}(\hat{y}^n-(b+w\cdot x_{cp}^n))^2$$
+$$w^*,b^* = arg\min_{w,b}L(w,b) = arg\min_{w,b}\sum^{10}_{n=1}(\hat{y}^n-(b+w\cdot x_{cp}^n))^2$$
 
 那么我们如何来求解上面的公式呢？如果你比较熟悉线性代数，你已经发现上面的方程是有一个解析解的，我们通过简单的矩阵运算可以很轻松求出最好的$w$和$b$。
 
-在这里我们将介绍一个机器学习中很流行，很强大的方法：Gradient Descent。
+在这里我们将介绍一个机器学习中很流行，很强大，也更加通用的方法：梯度下降（Gradient Descent）。
 
 ## Gradient Descent
 
-我们这里先用Gradinet Descent来求解$w^* = arg\max_wL(w)$，梯度下降的步骤是：
+简化起见，我们这里先用Gradinet Descent来求解$w^* = arg\min_wL(w)$，梯度下降的步骤是：
 1. 对$w$随机初始化为$w^0$
 2. 计算$L(w)$在$w_0$处的导数$\frac{dL}{dw}|_{w=w^0}$
 3. 更新$w: w_1 \gets w_0 - \eta\frac{dL}{dw}|_{w=w^0}$
@@ -98,7 +91,7 @@ $$w^*,b^* = arg\max_{w,b}L(w,b) = arg\max_{w,b}\sum^{10}_{n=1}(\hat{y}^n-(b+w\cd
 
 ![Gradinet Descent](../images/009_gradient_descent.jpg)
 
-注：上面步骤中关于如何求解$L(w,b)$关于$w$与$b$的偏导数，是很基础的微积分的知识，这里就从略了。关于梯度下降的话题，我们将在后面的课程中更加细致全面的讲解。
+注：上面步骤中关于如何求解$L(w,b)$关于$w$与$b$的偏导数，是很基础的微积分的知识，这里就从略了。关于梯度下降的话题，我们将在后面的章节中更加细致全面的讲解。
 
 ## How the result
 
@@ -108,7 +101,7 @@ $$w^*,b^* = arg\max_{w,b}L(w,b) = arg\max_{w,b}\sum^{10}_{n=1}(\hat{y}^n-(b+w\cd
 
 ![training error](../images/010_training_error.jpg)
 
-我们又找到10只宝可梦作为测试数据集，进一步看我们的模型的表现，得到了35.0的平均测试误差。
+但是上面的误差只能反映我们在训练数据集上的表现，那我们的模型如果实际应用，对于没见过的宝可梦表现效果如何呢？　于是我们又找到10只宝可梦作为测试数据集，进一步看我们的模型的表现，得到了35.0的平均测试误差。
 
 ![testing error](../images/011_testing_error.jpg)
 
@@ -118,6 +111,7 @@ $$w^*,b^* = arg\max_{w,b}L(w,b) = arg\max_{w,b}\sum^{10}_{n=1}(\hat{y}^n-(b+w\cd
 
 从上面其他模型选择测试中可以看出，一个更复的复杂的模型往往能在训练集上取得更小的误差，但是在测试集上表现确不尽然。这种现像称为**Overfitting**。
 
+过拟合可以简单理解为：模型为了在训练集上效果较好，强行记往了训练集上一些独特的特性，而没有能力去分析通用的、底层性的特性。这就像我们学驾照一样，在练车时，通过大量的练习，我们会记住训练场地中的一些标识物用于辅助我们倒车、转向等。但是到真实路面驾驶时，就没有这些参考物了，自然就不会有很好的表现了。
 
 越复杂的model，则model参数可行域就越大，从而就更容易找到适合training data的参数。关于更加理论的解释，我们将会在下一节中重点介绍
 
@@ -125,11 +119,11 @@ $$w^*,b^* = arg\max_{w,b}L(w,b) = arg\max_{w,b}\sum^{10}_{n=1}(\hat{y}^n-(b+w\cd
 
 ## Hidden Factors
 
-当我们搜集到更多的宝可梦的数据进行训练时，我们发现之前定义的模型无论如何都无法达到一个满意的效果，于是，我们对搜集的训练数据进行了可视化，如下：
+当我们搜集到更多的宝可梦的数据进行训练时，我们发现之前定义的模型无论如何都无法达到一个特别满意的效果，于是，我们对搜集的训练数据进行了可视化，如下：
 
 ![more data](../images/014_more_data.jpg)
 
-通过更细致的分析数据，我们发现，数据呈现了多个线性模型的可能。回到我们的步骤1中，我们只选择了宝可梦进化前的cp值作为宝可梦的特征。这里我们容易想到，宝可梦的种类可能也是一个很重要的特征，在决定宝可梦进化后的CP值上起很关键的作用。
+通过更细致的分析数据，我们发现，数据呈现了多个线性模型的可能。回到我们的步骤1中，我们只选择了宝可梦进化前的cp值作为宝可梦的特征。这里我们容易想到，宝可梦的种类可能也是一个很重要的特征，在决定宝可梦进化后的CP值上起很关键的作用。但这个特征比较特别，它本身不是一个连续的值，而是一个离散可列的集合，我们没办法直接把它写到线性模型中，而是采用一个类似多段的线性模型。
 
 所以这时，我们考虑一个更复杂的模型，把宝可梦的种类也考虑到模型中。我们的模型变为：
 
@@ -151,7 +145,7 @@ $$w^*,b^* = arg\max_{w,b}L(w,b) = arg\max_{w,b}\sum^{10}_{n=1}(\hat{y}^n-(b+w\cd
 
 $$L = \sum_n\left(\hat{y}^n - (b+\sum w_ix_i)\right)^2+\lambda\sum(w_i)^2$$
 
-在面等式与前面相比，我们在最后多加一项$\lambda\sum(w_i)^2$，加入后在我们最小化$L$时，我们会更倾向于选择$w_i$都很小的模型。更小的$w_i$就意味着整个模型会更加平滑，平滑的函数对噪声的容忍能力就会很强，不容易过拟合。
+在面等式与前面相比，我们在最后多加一项$\lambda\sum(w_i)^2$，加入后在我们最小化$L$时，我们会更倾向于选择$w_i$都很小的模型。更小的$w_i$就意味着整个模型会更加平滑，**平滑的函数对噪声的容忍能力就会很强，不容易过拟合**。
 
 $$f(x+\Delta x) = b+\sum w_i(x_i + \Delta x_i)=y + \sum w_i\Delta x_i $$
 
@@ -161,4 +155,6 @@ $$f(x+\Delta x) = b+\sum w_i(x_i + \Delta x_i)=y + \sum w_i\Delta x_i $$
 
 
 思考： 这里最终我们通过正则化在测试集上达到了11.1的平均误差，那如何再有新的测试数据，正常来说我们的模型在这些新的数据上的平均误差是会高于11.1还是低于11.1还是基本一致呢？
+
+应该是低，因为我们在上面的过程中有针对测试集来选择一些超参数，比如模型复杂度。
 
